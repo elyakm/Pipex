@@ -6,7 +6,7 @@
 /*   By: klaksi <klaksi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:54:19 by klaksi            #+#    #+#             */
-/*   Updated: 2023/05/02 17:54:04 by klaksi           ###   ########.fr       */
+/*   Updated: 2023/05/08 16:28:33 by klaksi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-int	main(void)
+int	main()
 {
-	int		pipe_fd[2];
 	pid_t	pid;
+	int		pipefd[2];
 	char	*buff;
 
-	buff = malloc(3 * sizeof(char));
-	pipe(pipe_fd);
+	buff = malloc(8 * sizeof (char));
+	pipe(pipefd);
 	pid = fork();
-	if (pid == 0)
+	if (pid == 0) // child
 	{
-		close(pipe_fd[0]);
-		write(pipe_fd[1], "lol", 3);
-		close(pipe_fd[1]);
+		close(pipefd[0]); //close fd pour lire
+		write(pipefd[1], "kskonveu", 8); //write
+		close(pipefd[1]); // close fd pour ecrire
 	}
-	else if (pid > 0)
+	else
 	{
 		waitpid(pid, NULL, 0);
-		close(pipe_fd[1]);
-		read(pipe_fd[0], buff, 3);
-		close(pipe_fd[0]);
-		printf("pipe: %s\n", buff);
+		close(pipefd[1]);
+		read(pipefd[0], buff, 8);
+		printf("result : %s\n", buff);
+		close(pipefd[0]);
 	}
 	return (0);
 }
