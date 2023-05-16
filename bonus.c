@@ -6,7 +6,7 @@
 /*   By: klaksi <klaksi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:52:49 by klaksi            #+#    #+#             */
-/*   Updated: 2023/05/16 18:56:31 by klaksi           ###   ########.fr       */
+/*   Updated: 2023/05/16 19:15:25 by klaksi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int main(int argc, char **argv, char **envp)
     int     i;
     int     j;
 
-    count_cmd = argc - 3;
-    count_pipe = argc - 4; // ou count_pipe = count_cmd - 1 car ya tjrs un pipe de moins que le nbr de cmds
+    count_cmd = argc - 2;
+    count_pipe = argc - 3; // ou count_pipe = count_cmd - 1 car ya tjrs un pipe de moins que le nbr de cmds
 
     // malloc cmd_arr --------------------------------------
 
@@ -41,16 +41,14 @@ int main(int argc, char **argv, char **envp)
     i = 0;
     while(i < count_cmd)
     {
-        ft_printf("hii2\n");
         cmd_arr[i] = ft_split(argv[i + 2], ' '); // split argv at i+2(cmd1 (i+0:a.out, i+1:infile, i+2:cmd1)) and store the result in cmd_arr at index i
         i++;
     }
-    ft_printf("hii3\n");
     i = 0;
-    ft_printf("hii4\n");
+
+    ft_printf("%s\n", cmd_arr[0][0]);
     while (cmd_arr[i])
     {
-         ft_printf("hii5\n");
         j = 0;
         while (cmd_arr[i][j])
         {
@@ -59,5 +57,4 @@ int main(int argc, char **argv, char **envp)
         }
         i++;
     }
-
 }
